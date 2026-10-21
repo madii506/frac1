@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>fRAC1</title>
+<meta name="description" content="Launch a coin on any chain. One deposit on Base, Ethereum, Arbitrum or BNB Chain, and it lands live on pump.fun with your first buy.">
+<meta property="og:title" content="fRAC1">
+<meta property="og:description" content="Pull the pin on any chain. Your coin lands on pump.fun.">
+<meta property="og:image" content="/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f6f3ec">
+<link rel="icon" href="/assets/fav64.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/fav180.png">
+<style>
+@font-face{font-family:JBM;src:url(/assets/JBM-400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:JBM;src:url(/assets/JBM-800.woff2) format('woff2');font-weight:800;font-display:swap}
+:root{--paper:#f6f3ec;--paper2:#efebe1;--dot:#d0c8b9;--ink:#10161a;--ink2:#4c5660;--ink3:#8a929a;--line:#d9d2c4;--line2:#c6bdac;--g:#22aa5c;--g1:#4ade80;--g0:#e3f7ea;--red:#c0392b;--m:JBM,ui-monospace,Menlo,monospace;--e:cubic-bezier(.2,.7,.1,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Crect x='15' y='15' width='2' height='2' fill='%23d0c8b9'/%3E%3C/svg%3E");color:var(--ink);font:400 14px/1.6 var(--m);scroll-behavior:smooth;overflow-x:hidden}
+body{overflow-x:hidden}a{color:inherit;text-decoration:none}button,input,select{font:inherit;color:inherit}
+::selection{background:var(--g);color:#fff}
+.bar{position:fixed;top:0;left:0;right:0;height:46px;z-index:50;display:flex;align-items:center;padding:0 20px;background:rgba(246,243,236,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.logo{font-weight:800;font-size:16px;letter-spacing:-.02em}.logo b{color:var(--g)}
+.nav{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:2px;padding:2px;border:1px solid var(--line);background:rgba(239,235,225,.8)}
+.nav a{padding:4px 12px;font-size:12px;color:var(--ink2);transition:all .2s}.nav a:hover{background:var(--paper);color:var(--ink)}
+.cta{margin-left:auto;padding:7px 14px;background:var(--ink);color:var(--paper);font-weight:800;font-size:12px;transition:background .2s}.cta:hover{background:var(--g)}
+@media(max-width:760px){.nav{display:none}}
+.wrap{width:min(1180px,calc(100% - 40px));margin:0 auto}
+/* hero */
+.hero{min-height:100vh;padding-top:46px;display:grid;grid-template-columns:1fr 1.15fr;align-items:center;gap:20px;position:relative}
+.prompt{font-size:16px;color:var(--ink2);min-height:1.6em}.prompt i{font-style:normal;color:var(--g)}.prompt u{text-decoration:none;display:inline-block;width:10px;height:3px;background:var(--g);margin-left:3px;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+h1{font:800 clamp(64px,10vw,150px)/.95 var(--m);letter-spacing:-.05em;margin:14px 0 18px}h1 b{color:var(--g)}
+.sub{font-size:15px;color:var(--ink2);max-width:460px;line-height:1.7}.sub b{color:var(--ink)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);font-weight:800;font-size:13px;cursor:pointer;transition:all .2s var(--e)}
+.btn:hover{background:var(--g);border-color:var(--g);transform:translateY(-1px)}.btn.o{background:transparent;color:var(--ink)}.btn.o:hover{background:var(--ink);color:var(--paper)}
+.ticks{display:flex;gap:18px;margin-top:30px;font-size:12px;color:var(--ink3);flex-wrap:wrap}.ticks b{color:var(--ink);font-weight:800}
+#arena{width:100%;height:min(620px,78vh);display:block}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:80px;min-height:0}#arena{height:420px}}
+/* sections */
+.sec{padding:110px 0 30px}
+.hd{display:flex;align-items:center;gap:12px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink2)}.hd .no{color:var(--g);font-weight:800}.hd .rule{flex:1;height:1px;background:repeating-linear-gradient(90deg,var(--line2) 0 6px,transparent 6px 10px)}
+h2{font:800 clamp(30px,4.4vw,54px)/1.05 var(--m);letter-spacing:-.035em;margin:22px 0 14px}h2 b{color:var(--g)}
+.lede{color:var(--ink2);max-width:700px;line-height:1.75}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+.card{position:relative;border:1px solid var(--line2);background:rgba(239,235,225,.82);padding:20px}
+.card::before,.card::after{content:'+';position:absolute;font-size:12px;color:var(--ink3);line-height:1}.card::before{left:-5px;top:-7px}.card::after{right:-5px;bottom:-7px}
+.card .n{font-size:11px;color:var(--g);font-weight:800;letter-spacing:.1em}.card h3{font:800 19px var(--m);margin:8px 0 6px;letter-spacing:-.02em}.card p{color:var(--ink2);font-size:13px;line-height:1.65}
+.card pre{margin-top:14px;font-size:12px;color:var(--g);line-height:1.35}
+@media(max-width:900px){.steps{grid-template-columns:1fr}}
+/* console */
+.console{display:grid;grid-template-columns:1.25fr 1fr;gap:14px;margin-top:34px}
+@media(max-width:900px){.console{grid-template-columns:1fr}}
+.ct{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);margin-bottom:14px}.ct .r{margin-left:auto;letter-spacing:.02em;text-transform:none;color:var(--ink3)}
+.lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:16px 0 7px}
+.chains{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.chains button{border:1px solid var(--line2);background:var(--paper);padding:11px 8px;cursor:pointer;text-align:left;transition:all .2s}
+.chains button small{display:block;font-size:10.5px;color:var(--ink3)}.chains button b{font-size:13px}
+.chains button.on{border-color:var(--ink);background:var(--ink);color:var(--paper)}.chains button.on small{color:var(--line2)}
+@media(max-width:600px){.chains{grid-template-columns:1fr 1fr}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.inp{width:100%;border:1px solid var(--line2);background:var(--paper);padding:11px 12px;font-size:13.5px;outline:none;transition:border-color .2s}.inp:focus{border-color:var(--g)}
+.amt{display:flex;border:1px solid var(--line2);background:var(--paper)}.amt input{border:0;flex:1;padding:12px;font-size:20px;font-weight:800;outline:none;background:transparent;width:100%}.amt span{padding:12px 14px;border-left:1px solid var(--line2);font-weight:800;color:var(--ink2)}
+.quick{display:flex;gap:5px;margin-top:6px}.quick button{border:1px solid var(--line2);background:transparent;font-size:11px;padding:3px 9px;cursor:pointer}.quick button:hover{border-color:var(--ink)}
+.imgpick{display:flex;gap:12px;align-items:center}.imgpick .pv{width:64px;height:64px;border:1px dashed var(--line2);display:grid;place-items:center;color:var(--ink3);font-size:11px;background:var(--paper) center/cover}
+.sum{font-size:13px}.sum .l{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line)}.sum .l span{color:var(--ink2)}.sum .l b{text-align:right}
+.route{margin:6px 0 16px;font-size:12px;color:var(--ink2);line-height:1.9}
+.route .p{display:flex;align-items:center;gap:8px}.route .p i{width:9px;height:9px;border:2px solid var(--ink);border-radius:50%;flex:none}.route .p.g i{background:var(--g1)}
+.route .ln{margin-left:4px;border-left:2px dotted var(--ink3);height:14px}
+.pin{width:100%;justify-content:center;margin-top:16px;font-size:14px;padding:15px}
+.note{margin-top:12px;font-size:11.5px;color:var(--ink3);line-height:1.6}
+.state{margin-top:12px;border:1px solid var(--g);background:var(--g0);padding:12px;font-size:12.5px;display:none}.state.on{display:block;animation:pop .4s var(--e)}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}}
+.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--g);animation:ping 1.8s infinite;margin-right:6px}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(34,170,92,.5)}70%{box-shadow:0 0 0 8px rgba(34,170,92,0)}}
+/* prices */
+.px{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line2);margin-top:30px;background:rgba(239,235,225,.82)}
+.px div{padding:16px 18px;border-right:1px solid var(--line2)}.px div:last-child{border-right:0}.px small{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}.px b{font-size:22px;letter-spacing:-.02em}.px em{font-style:normal;font-size:12px;margin-left:6px}
+.up{color:var(--g)}.dn{color:var(--red)}
+@media(max-width:700px){.px{grid-template-columns:1fr 1fr}.px div:nth-child(2){border-right:0}.px div{border-bottom:1px solid var(--line2)}}
+/* faq */
+details{border-bottom:1px dashed var(--line2);padding:16px 0}summary{cursor:pointer;font-weight:800;list-style:none;display:flex;gap:12px}summary::before{content:'[+]';color:var(--g)}details[open] summary::before{content:'[-]'}details p{color:var(--ink2);margin:10px 0 0 40px;max-width:760px;line-height:1.75}
+.end{padding:120px 0 90px;text-align:center}.end h2{margin-bottom:22px}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .8s var(--e),transform .8s var(--e)}.rv.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="logo" href="/"><b>f</b>RAC1</a>
+  <nav class="nav"><a href="#how">how</a><a href="#launch">launch</a><a href="#prices">prices</a><a href="#faq">faq</a></nav>
+  <a class="cta" href="#launch">pull the pin ↗</a>
+</header>
+
+<section class="hero wrap">
+  <div>
+    <div class="prompt"><i>&gt;</i> <span id="typed"></span><u></u></div>
+    <h1><b>f</b>RAC1</h1>
+    <p class="sub">Launch a coin on any chain. <b>One deposit</b> on Base, Ethereum, Arbitrum or BNB Chain, and it <b>lands live on pump.fun</b> with your first buy.</p>
+    <div class="row"><a class="btn" href="#launch">pull the pin →</a><a class="btn o" href="#how">how it lands</a></div>
+    <div class="ticks"><span><span class="live"></span>live prices</span><span>ETH <b id="tEth">…</b></span><span>BNB <b id="tBnb">…</b></span><span>SOL <b id="tSol">…</b></span></div>
+  </div>
+  <canvas id="arena" aria-label="Coins thrown from four chains landing on pump.fun"></canvas>
+</section>
+
+<section class="sec wrap" id="how">
+  <div class="hd rv"><span class="no">[01]</span><span>how it lands</span><span class="rule"></span></div>
+  <h2 class="rv">Three moves. <b>One coin.</b></h2>
+  <p class="lede rv">You stay on the chain you already hold funds on. fRAC1 carries the deposit across to Solana, creates the coin on pump.fun and makes your first buy, so the coin is live and you hold it before anyone else.</p>
+  <div class="steps">
+    <div class="card rv"><div class="n">01 · PULL</div><h3>Pick your chain</h3><p>Base, Ethereum, Arbitrum or BNB Chain. Name the coin, set the ticker, drop the picture.</p><pre>  ( base )
+  ( ethereum )   ...
+  ( arbitrum )   ....
+  ( bnb chain )  .....</pre></div>
+    <div class="card rv"><div class="n">02 · THROW</div><h3>Send one deposit</h3><p>One transfer from the wallet you already use. It covers the bridge, pump.fun's creation fee and your first buy.</p><pre>  =[]=  . . . .
+          .       .
+        .           .</pre></div>
+    <div class="card rv"><div class="n">03 · LAND</div><h3>It goes live on pump.fun</h3><p>The coin is created on Solana with your first buy inside the same launch. The tokens go to your Solana wallet.</p><pre>          \ | /
+        -- (*) --
+          / | \  pump.fun</pre></div>
+  </div>
+</section>
+
+<section class="sec wrap" id="launch">
+  <div class="hd rv"><span class="no">[02]</span><span>launch</span><span class="rule"></span><span style="letter-spacing:.04em;text-transform:none;color:var(--ink3)" id="lMeta">prices update every 30 s</span></div>
+  <h2 class="rv">Pull the pin <b>on any chain.</b></h2>
+  <div class="console">
+    <div class="card rv">
+      <div class="ct">the coin<span class="r">lands on pump.fun · solana</span></div>
+      <div class="lbl" style="margin-top:0">throw from</div>
+      <div class="chains" id="chains">
+        <button type="button" data-c="base" class="on"><small>L2</small><b>Base</b></button>
+        <button type="button" data-c="ethereum"><small>L1</small><b>Ethereum</b></button>
+        <button type="button" data-c="arbitrum"><small>L2</small><b>Arbitrum</b></button>
+        <button type="button" data-c="bnb"><small>L1</small><b>BNB Chain</b></button>
+      </div>
+      <div class="two"><div><div class="lbl">name</div><input class="inp" id="fName" maxlength="32" placeholder="Your coin" autocomplete="off"></div><div><div class="lbl">ticker</div><input class="inp" id="fSym" maxlength="10" placeholder="TICKER" autocomplete="off" style="text-transform:uppercase"></div></div>
+      <div class="lbl">picture</div>
+      <div class="imgpick"><label class="pv" id="pv" for="fImg">+ add</label><input type="file" id="fImg" accept="image/png,image/jpeg,image/webp,image/gif" hidden><span class="note" style="margin:0">png, jpg, webp or gif · square works best</span></div>
+      <div class="lbl">deposit</div>
+      <div class="amt"><input id="fAmt" inputmode="decimal" value="0.05" autocomplete="off"><span id="unit">ETH</span></div>
+      <div class="quick" id="quick"></div>
+      <div class="lbl">your solana wallet (the tokens land here)</div>
+      <input class="inp" id="fWal" placeholder="Solana address" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="card rv">
+      <div class="ct">the route<span class="r"><span class="live"></span>live prices</span></div>
+      <div class="route" id="route"></div>
+      <div class="sum" id="sum"></div>
+      <button class="btn pin" id="pin" type="button">pull the pin →</button>
+      <div class="state" id="state"><b>Launches open with $FRAC1.</b><br>The engine isn't taking deposits yet, so nothing is sent from this page. Your coin details stay in this browser until launches open.</div>
+      <p class="note">Values are estimates from live market prices. The exact amount comes from the bridge quote at launch, after bridge, gas and pump.fun fees.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec wrap" id="prices">
+  <div class="hd rv"><span class="no">[03]</span><span>live</span><span class="rule"></span><span style="letter-spacing:.04em;text-transform:none;color:var(--ink3)" id="pMeta">loading</span></div>
+  <h2 class="rv">What your deposit <b>is worth right now.</b></h2>
+  <div class="px rv"><div><small>ETH · base · ethereum · arbitrum</small><b id="pEth">…</b><em id="cEth"></em></div><div><small>BNB · bnb chain</small><b id="pBnb">…</b><em id="cBnb"></em></div><div><small>SOL · where it lands</small><b id="pSol">…</b><em id="cSol"></em></div><div><small>1 ETH lands as</small><b id="pRat">…</b><em>SOL</em></div></div>
+</section>
+
+<section class="sec wrap" id="faq">
+  <div class="hd rv"><span class="no">[04]</span><span>questions</span><span class="rule"></span></div>
+  <h2 class="rv">Straight <b>answers.</b></h2>
+  <details class="rv"><summary>Which chains can I launch from?</summary><p>Base, Ethereum, Arbitrum and BNB Chain. You pay in ETH on the first three and in BNB on BNB Chain.</p></details>
+  <details class="rv"><summary>Where does my coin live?</summary><p>On Solana, created on pump.fun. Your deposit is carried across, the coin is created, and your first buy is made in the same launch. The tokens go to the Solana address you give.</p></details>
+  <details class="rv"><summary>Do I need a Solana wallet?</summary><p>You need a Solana address for your tokens to land in. You don't need SOL in it.</p></details>
+  <details class="rv"><summary>Is fRAC1 part of pump.fun?</summary><p>No. fRAC1 is independent. It launches coins on pump.fun the same way any other launch tool does.</p></details>
+  <details class="rv"><summary>When do launches open?</summary><p>With $FRAC1. Until then this page shows live prices and the route, and takes no deposits.</p></details>
+</section>
+
+<section class="end wrap">
+  <h2 class="rv">Pull the pin.<br><b>It lands on pump.fun.</b></h2>
+  <a class="btn rv" href="#launch">launch a coin on any chain →</a>
+</section>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  // typed prompt
+  const T = 'pull the pin on any chain'; let k = 0; const ty = () => { $('#typed').textContent = T.slice(0, ++k); if (k < T.length) setTimeout(ty, 45 + Math.random() * 40); }; setTimeout(ty, 400);
+  // reveals
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  // ---------- the arena: four chains throw, every throw lands on pump.fun ----------
+  const cv = $('#arena'), x = cv.getContext('2d'), G = new Image(); G.src = '/assets/grenade.png';
+  const SRC = ['base', 'ethereum', 'arbitrum', 'bnb chain'];
+  let W, H, D; const fit = () => { D = Math.min(2, devicePixelRatio || 1); const b = cv.getBoundingClientRect(); W = b.width; H = b.height; cv.width = W * D; cv.height = H * D; x.setTransform(D, 0, 0, D, 0, 0); }; fit(); addEventListener('resize', fit);
+  const P = () => { const sx = W * .2, lx = W * .8, ly = H * .62; return { lx, ly, src: SRC.map((n, i) => ({ n, x: sx, y: H * (.26 + i * .17) })) }; };
+  const flights = [], bursts = []; let last = 0, mx = null, my = null;
+  cv.addEventListener('pointermove', e => { const b = cv.getBoundingClientRect(); mx = e.clientX - b.left; my = e.clientY - b.top; });
+  cv.addEventListener('pointerleave', () => { mx = null; });
+  cv.addEventListener('click', () => throwOne(Math.floor(Math.random() * 4)));
+  function arc(s, L, k, h) { const cx = (s.x + L.lx) / 2, cy = Math.min(s.y, L.ly) - h; const t = k; return [(1 - t) * (1 - t) * s.x + 2 * (1 - t) * t * cx + t * t * L.lx, (1 - t) * (1 - t) * s.y + 2 * (1 - t) * t * cy + t * t * L.ly]; }
+  const H0 = i => 150 - i * 26;
+  function throwOne(i) { flights.push({ i, t0: performance.now(), dur: 1500 + Math.random() * 500, spin: (Math.random() < .5 ? -1 : 1) * (4 + Math.random() * 3) }); }
+  function draw(now) {
+    requestAnimationFrame(draw); x.clearRect(0, 0, W, H); const L = P();
+    if (now - last > 900) { last = now; throwOne(Math.floor(Math.random() * 4)); }
+    // routes
+    L.src.forEach((s, i) => {
+      const hot = mx != null && Math.hypot(mx - s.x, my - s.y) < 60;
+      for (let k = 0; k <= 1; k += .022) { const [px, py] = arc(s, L, k, H0(i)); const ph = ((now / 1400) + k) % 1; x.fillStyle = i % 2 ? 'rgba(16,22,26,.55)' : 'rgba(34,170,92,.75)'; const r = hot ? 3.2 : 2.2 + Math.sin(ph * 6.283) * .5; x.beginPath(); x.arc(px, py, r, 0, 6.283); x.fill(); }
+      x.strokeStyle = '#10161a'; x.lineWidth = 2.5; x.fillStyle = '#f6f3ec'; x.beginPath(); x.arc(s.x, s.y, 9, 0, 6.283); x.fill(); x.stroke();
+      x.font = '13px JBM, monospace'; x.fillStyle = '#4c5660'; x.textAlign = 'right'; x.textBaseline = 'middle'; x.fillText(s.n, s.x - 18, s.y);
+    });
+    // the landing pad
+    const pulse = (now / 1600) % 1; x.strokeStyle = `rgba(34,170,92,${.5 * (1 - pulse)})`; x.lineWidth = 2; x.beginPath(); x.arc(L.lx, L.ly, 22 + pulse * 40, 0, 6.283); x.stroke();
+    star(L.lx, L.ly, 24, '#4ade80', 1);
+    x.font = '800 15px JBM, monospace'; x.fillStyle = '#10161a'; x.textAlign = 'left'; x.fillText('pump.fun', L.lx + 36, L.ly - 8); x.font = '12px JBM, monospace'; x.fillStyle = '#4c5660'; x.fillText('solana', L.lx + 36, L.ly + 12);
+    // flights
+    for (let n = flights.length - 1; n >= 0; n--) {
+      const f = flights[n], k = (now - f.t0) / f.dur, s = L.src[f.i];
+      if (k >= 1) { flights.splice(n, 1); bursts.push({ t0: now }); continue; }
+      const [px, py] = arc(s, L, k, H0(f.i)); const sz = 34;
+      if (G.complete && G.naturalWidth) { x.save(); x.translate(px, py); x.rotate(k * f.spin); x.drawImage(G, -sz * .33, -sz * .5, sz * .66, sz); x.restore(); }
+    }
+    for (let n = bursts.length - 1; n >= 0; n--) { const b = bursts[n], k = (now - b.t0) / 700; if (k >= 1) { bursts.splice(n, 1); continue; }
+      star(L.lx, L.ly, 24 + k * 46, `rgba(74,222,128,${.55 * (1 - k)})`, 0); x.strokeStyle = `rgba(16,22,26,${.6 * (1 - k)})`; x.lineWidth = 1.5; x.beginPath(); x.arc(L.lx, L.ly, 30 + k * 70, 0, 6.283); x.stroke(); }
+  }
+  function star(cx, cy, R, fill, outline) { x.beginPath(); for (let i = 0; i < 20; i++) { const a = i * Math.PI / 10, r = i % 2 ? R * .5 : R; x.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r); } x.closePath(); x.fillStyle = fill; x.fill(); if (outline) { x.strokeStyle = '#10161a'; x.lineWidth = 2.5; x.stroke(); } }
+  requestAnimationFrame(draw);
+
+  // ---------- live prices (CoinGecko public API) ----------
+  const PX = { eth: null, bnb: null, sol: null }, CH = {};
+  const usd = v => v == null ? '…' : '$' + v.toLocaleString('en-US', { maximumFractionDigits: v < 10 ? 2 : 0 });
+  async function prices() {
+    try {
+      const j = await (await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum,binancecoin,solana&vs_currencies=usd&include_24hr_change=true')).json();
+      PX.eth = j.ethereum.usd; PX.bnb = j.binancecoin.usd; PX.sol = j.solana.usd; CH.eth = j.ethereum.usd_24h_change; CH.bnb = j.binancecoin.usd_24h_change; CH.sol = j.solana.usd_24h_change;
+      $('#tEth').textContent = usd(PX.eth); $('#tBnb').textContent = usd(PX.bnb); $('#tSol').textContent = usd(PX.sol);
+      [['Eth', 'eth'], ['Bnb', 'bnb'], ['Sol', 'sol']].forEach(([a, b]) => { $('#p' + a).textContent = usd(PX[b]); const c = CH[b]; $('#c' + a).textContent = (c >= 0 ? '+' : '') + c.toFixed(2) + '% 24h'; $('#c' + a).className = c >= 0 ? 'up' : 'dn'; });
+      $('#pRat').textContent = (PX.eth / PX.sol).toFixed(2); $('#pMeta').textContent = 'CoinGecko · updated ' + new Date().toLocaleTimeString();
+      render();
+    } catch (e) { $('#pMeta').textContent = 'prices offline: ' + e.message; }
+  }
+  prices(); setInterval(prices, 30000);
+
+  // ---------- the console ----------
+  const CHAINS = { base: { n: 'Base', u: 'ETH', p: 'eth', q: [.02, .05, .1, .25] }, ethereum: { n: 'Ethereum', u: 'ETH', p: 'eth', q: [.02, .05, .1, .25] }, arbitrum: { n: 'Arbitrum', u: 'ETH', p: 'eth', q: [.02, .05, .1, .25] }, bnb: { n: 'BNB Chain', u: 'BNB', p: 'bnb', q: [.1, .25, .5, 1] } };
+  let C = 'base';
+  $('#chains').querySelectorAll('button').forEach(b => b.onclick = () => { C = b.dataset.c; $('#chains').querySelectorAll('button').forEach(y => y.classList.toggle('on', y === b)); $('#unit').textContent = CHAINS[C].u; $('#fAmt').value = CHAINS[C].q[1]; quick(); render(); });
+  function quick() { $('#quick').innerHTML = CHAINS[C].q.map(v => `<button type="button">${v} ${CHAINS[C].u}</button>`).join(''); $('#quick').querySelectorAll('button').forEach((b, i) => b.onclick = () => { $('#fAmt').value = CHAINS[C].q[i]; render(); }); }
+  quick();
+  ['#fAmt', '#fName', '#fSym', '#fWal'].forEach(s => $(s).addEventListener('input', render));
+  $('#fImg').onchange = e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => { $('#pv').style.backgroundImage = `url(${r.result})`; $('#pv').textContent = ''; }; r.readAsDataURL(f); };
+  function render() {
+    const c = CHAINS[C], a = parseFloat(String($('#fAmt').value).replace(',', '.')) || 0, p = PX[c.p], s = PX.sol, v = p != null ? a * p : null, sol = p != null && s ? v / s : null;
+    const nm = $('#fName').value.trim() || 'your coin', sym = ($('#fSym').value.trim() || 'TICKER').toUpperCase();
+    $('#route').innerHTML = `<div class="p"><i></i><b>${a || 0} ${c.u}</b>&nbsp;on ${c.n}</div><div class="ln"></div><div class="p"><i></i>bridged to Solana</div><div class="ln"></div><div class="p g"><i></i><b>$${sym.replace(/[^A-Z0-9]/g, '') || 'TICKER'}</b>&nbsp;created on pump.fun, first buy included</div>`;
+    $('#sum').innerHTML = `<div class="l"><span>deposit</span><b>${a || 0} ${c.u}</b></div><div class="l"><span>worth now</span><b>${usd(v)}</b></div><div class="l"><span>arrives as (before fees)</span><b>${sol != null ? '≈ ' + sol.toFixed(3) + ' SOL' : '…'}</b></div><div class="l"><span>coin</span><b>${nm.replace(/</g, '')} · $${sym.replace(/[^A-Z0-9]/g, '') || 'TICKER'}</b></div>`;
+  }
+  render();
+  $('#pin').onclick = () => { $('#state').classList.add('on'); try { localStorage.setItem('frac1_draft', JSON.stringify({ C, name: $('#fName').value, sym: $('#fSym').value, amt: $('#fAmt').value, wal: $('#fWal').value })); } catch (e) {} };
+  try { const d = JSON.parse(localStorage.getItem('frac1_draft') || 'null'); if (d) { $('#fName').value = d.name || ''; $('#fSym').value = d.sym || ''; $('#fWal').value = d.wal || ''; } } catch (e) {}
+})();
+</script>
+</body>
+</html>
